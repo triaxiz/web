@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Triaxiz</title>
+    <link rel="icon" type="image/x-icon" href="/assets/ellipse.svg" />
   </head>
+  <!-- Style -->
   <style>
     @font-face {
       font-family: MonumentExtended-Regular;
@@ -48,6 +50,14 @@
       background-color: #101010;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .hover-button {
+      background-color: #95da01;
+    }
+
     .plugin-detail {
       display: block;
       text-align: center;
@@ -57,6 +67,11 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
+    }
+    .prevent-select {
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
     }
 
     .see-more-content {
@@ -74,6 +89,12 @@
     .nav-visible {
       display: flex !important;
     }
+
+    .nav-hover a:hover {
+      color: #a6f000;
+      transition-delay: 0ms;
+    }
+
     .home-button {
       transition: all 2s linear;
       transform: translateX(-200%);
@@ -86,12 +107,64 @@
       -moz-box-shadow: 0px 5px 11px 5px rgba(0, 0, 0, 0.5);
       box-shadow: 0px 5px 11px 5px rgba(0, 0, 0, 0.5);
     }
+
+    .menu {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      padding: 0;
+      scale: 0.4;
+    }
+    .line {
+      fill: none;
+      stroke-width: 3;
+      transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .line,
+    .line2,
+    .line3 :hover {
+      stroke: #a6f000;
+      stroke: #ffffff;
+    }
+    .line1 {
+      stroke-dasharray: 60 207;
+      stroke-width: 3;
+    }
+    .line2 {
+      stroke-dasharray: 60 60;
+      stroke-width: 3;
+    }
+    .line3 {
+      stroke-dasharray: 60 207;
+      stroke-width: 3;
+    }
+    .opened .line1 {
+      stroke-dasharray: 90 207;
+      stroke-dashoffset: -134;
+      stroke-width: 3;
+    }
+    .opened .line2 {
+      stroke-dasharray: 1 60;
+      stroke-dashoffset: -30;
+      stroke-width: 3;
+    }
+    .opened .line3 {
+      stroke-dasharray: 90 207;
+      stroke-dashoffset: -134;
+      stroke-width: 3;
+    }
   </style>
+  <!-- Style Ends -->
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <body class="bg-[#101010] body-font" style="overflow-x: hidden">
     <header class="border-b-[1px] border-[#686868]">
+      <!--Nav Starts  -->
       <nav
-        class="flex items-center justify-between flex-wrap bg-[#101010] p-6 container mx-auto"
+        class="flex nav-hover items-center justify-between flex-wrap bg-[#101010] p-6 container mx-auto"
       >
         <div class="flex items-center flex-shrink-0 text-white mr-6">
           <div>
@@ -102,11 +175,20 @@
         </div>
         <div class="block lg:hidden" id="menu-toggle">
           <button
-            class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-[#a6f000]"
+            class="menu"
+            onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'))"
+            aria-label="Main Menu"
           >
-            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20">
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <path
+                class="line line1"
+                d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
+              />
+              <path class="line line2" d="M 20,50 H 80" />
+              <path
+                class="line line3"
+                d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
+              />
             </svg>
           </button>
         </div>
@@ -116,28 +198,28 @@
         >
           <div class="text-sm lg:flex-grow">
             <a
-              href="#responsive-header"
+              href="#loc-product"
               class="block mt-4 lg:inline-block lg:mt-0 text-white mr-4 font-semibold lg:translate-x-0 translate-x-[-360%] transition-all delay-200"
               id="nav-button"
             >
               Product
             </a>
             <a
-              href="#responsive-header"
+              href="#loc-offers"
               class="block mt-4 lg:inline-block lg:mt-0 text-white mr-4 font-semibold lg:translate-x-0 translate-x-[-360%] transition-all delay-300"
               id="nav-button"
             >
               Offers
             </a>
             <a
-              href="#responsive-header"
+              href="#loc-about"
               class="block mt-4 lg:inline-block lg:mt-0 text-white mr-4 font-semibold lg:translate-x-0 translate-x-[-360%] transition-all delay-500"
               id="nav-button"
             >
               About
             </a>
             <a
-              href="#responsive-header"
+              href="#loc-blog"
               class="block mt-4 lg:inline-block lg:mt-0 text-white mr-4 font-semibold lg:translate-x-0 translate-x-[-360%] transition-all delay-700"
               id="nav-button"
             >
@@ -146,12 +228,15 @@
           </div>
         </div>
       </nav>
+      <!-- Nav Ends -->
     </header>
+
     <main style="overflow-x: hidden">
+      <!-- Head Starts -->
       <div
         class="mx-auto flex flex-col justify-center px-10 bg-[#101010] text-center md:px-12 lg:text-left w-full lg:h-[80vh]"
       >
-        <div class="container mx-auto">
+        <div class="container mx-auto prevent-select" id="loc-head">
           <div class="grid items-center gap-12 lg:grid-cols-2">
             <div class="mt-12 lg:mt-0">
               <h1
@@ -161,7 +246,7 @@
                 Collection of Shopify <br />
                 Plugins Today!
               </h1>
-              <p class="text-lg text-[#565656]">
+              <p class="text-lg text-[#8a8a8a]">
                 Join us on a magical adventure to elevate your <br />online
                 store's success.
               </p>
@@ -176,15 +261,21 @@
               <div class="flex justify-between mx-auto pt-10 lg:pr-10">
                 <div>
                   <h1 class="text-2xl text-white font-bold our-font">22K+</h1>
-                  <h6 class="text-[#565656] text-base font-thin">Downloads</h6>
+                  <h6 class="text-[#8a8a8a] text-base font-normal">
+                    Downloads
+                  </h6>
                 </div>
                 <div>
                   <h1 class="text-2xl text-white font-bold our-font">50K+</h1>
-                  <h6 class="text-[#565656] text-base font-thin">Customers</h6>
+                  <h6 class="text-[#8a8a8a] text-base font-normal">
+                    Customers
+                  </h6>
                 </div>
                 <div>
                   <h1 class="text-2xl text-white font-bold our-font">120+</h1>
-                  <h6 class="text-[#565656] text-base font-thin">Countries</h6>
+                  <h6 class="text-[#8a8a8a] text-base font-normal">
+                    Countries
+                  </h6>
                 </div>
               </div>
             </div>
@@ -205,9 +296,11 @@
           </div>
         </div>
       </div>
+      <!-- Head Ends -->
 
+      <!-- Boundary Starts -->
       <div
-        class="overflow-hidden p-2 text-sm min-w-max h-full bg-[#A6F000] lg:mt-12 md:m-0 md:text-xs list-none pl-10 pr-10"
+        class="overflow-hidden p-2 text-sm min-w-max prevent-select h-full bg-[#A6F000] lg:mt-12 md:m-0 md:text-xs list-none pl-10 pr-10"
         style="min-width: max-content"
       >
         <ul class="flex w-full justify-between">
@@ -273,11 +366,13 @@
           </li>
         </ul>
       </div>
+      <!-- Boundary Ends -->
+
+      <!-- About Starts -->
       <div
-        id="about"
-        class="w-full lg:p-[120px] p-[50px] lg:h-[95vh] text-white bg-[#000000]"
+        id="loc-about"
+        class="w-full prevent-select lg:p-[120px] p-[50px] lg:h-[95vh] text-white bg-[#000000]"
       >
-        <!-- test -->
         <div
           class="text-center mx-auto flex flex-col justify-center lg:text-left w-full h-[100%]"
         >
@@ -295,7 +390,7 @@
                   >
                     About Us
                   </h1>
-                  <p class="text-base text-[#565656] text-justify">
+                  <p class="text-base text-[#8a8a8a] text-justify">
                     At Triaxiz, we are driven by a passion for innovation and a
                     commitment to excellence. As a multinational corporation
                     specializing in digital solutions, we've embarked on a
@@ -313,10 +408,12 @@
             </div>
           </div>
         </div>
-        <!-- test ends -->
       </div>
+      <!-- About Ends -->
+
+      <!-- Boundary Starts -->
       <div
-        class="overflow-hidden p-2 text-sm min-w-max h-full bg-[#A6F000] md:m-0 md:text-xs list-none pl-10 pr-10"
+        class="overflow-hidden p-2 text-sm min-w-max prevent-select h-full bg-[#A6F000] md:m-0 md:text-xs list-none pl-10 pr-10"
         style="min-width: max-content"
       >
         <ul class="flex w-full justify-between">
@@ -382,7 +479,10 @@
           </li>
         </ul>
       </div>
-      <!-- <div
+      <!-- Boundary Ends -->
+
+      <!-- Products Listing (Hidden)-->
+      <div
         class="w-full h-[90%] mx-auto p-12 hidden flex-col justify-center container"
       >
         <div class="" style="color: white">
@@ -393,7 +493,7 @@
               Our Products
             </h1>
             <h4
-              class="lg:text-base md:text-sm mb-5 text-xs text-[#565656] text-center px-10"
+              class="lg:text-base md:text-sm mb-5 text-xs text-[#8a8a8a] text-center px-10"
             >
               Discover Our enchanting plugins designed to revolutionize your
               Online store. With a touch of magic and innovation, these plugins
@@ -403,14 +503,14 @@
           </div>
 
           <div
-            class="flex justify-around flex-wrap mb-2 text-xl font-thin text-white lg:text-xl lg:flex-cols-4 md:flex-col-3 gap-4"
+            class="flex justify-around flex-wrap mb-2 text-xl font-normal text-white lg:text-xl lg:flex-cols-4 md:flex-col-3 gap-4"
           >
             <div class="main-card-1" style="text-align: center">
               <div
                 class="rounded-3xl bg-[#565656] mt-5 pt-5 min-w-[330px] min-h-[250px]"
               ></div>
               <h4 class="mt-3 our-font text-xl">Product #XX</h4>
-              <h6 class="font-normal text-[#565656] text-sm">
+              <h6 class="font-normal text-[#8a8a8a] text-sm">
                 Lorem ipsum dolor sit amet, fr.
               </h6>
             </div>
@@ -419,7 +519,7 @@
                 class="rounded-3xl bg-[#565656] mt-5 pt-5 min-w-[330px] min-h-[250px]"
               ></div>
               <h4 class="mt-3 our-font text-xl">Product #XX</h4>
-              <h6 class="font-normal text-[#565656] text-sm">
+              <h6 class="font-normal text-[#8a8a8a] text-sm">
                 Lorem ipsum dolor sit amet, fr.
               </h6>
             </div>
@@ -428,30 +528,97 @@
                 class="rounded-3xl bg-[#565656] mt-5 pt-5 min-w-[330px] min-h-[250px]"
               ></div>
               <h4 class="mt-3 our-font text-xl">Product #XX</h4>
-              <h6 class="font-normal text-[#565656] text-sm">
+              <h6 class="font-normal text-[#8a8a8a] text-sm">
                 Lorem ipsum dolor sit amet, fr.
               </h6>
             </div>
           </div>
           <div class="see-more" style="color: black">
-            <h5
-              class="bg-[#A6F000] mt-4 rounded-full text-center p-3 pl-5 pr-5 lg:pl-12 lg:pr-12 our-font"
-            >
-              See More
-            </h5>
+            <a href="#loc-head">
+              <h5
+                class="bg-[#A6F000] hover-button mt-4 rounded-full text-center p-3 pl-5 pr-5 lg:pl-12 lg:pr-12 our-font"
+              >
+                See More
+              </h5>
+            </a>
           </div>
         </div>
-      </div> -->
-      <!-- <div
-        class="flex hidden justify-between p-2 text-sm w-full h-full bg-[#A6F000] md:m-0 md:text-xs list-none pl-10 pr-10"
-      >
-        <span>EXPLORE THE PLUGIN POWER</span>
+      </div>
+      <!-- Product Listing Ends Here -->
 
-        <span>TRIAXIZ</span>
-      </div> -->
-      <!-- w-[100%] h-full mx-auto lg:px-10 lg:pb-10 p-12 flex flex-wrap bg-[#101010] -->
+      <!-- Boundary Starts (Hidden)-->
       <div
-        class="flex justify-around xl:flex-row flex-col items-center container mx-auto"
+        class="overflow-hidden hidden p-2 text-sm min-w-max h-full bg-[#A6F000] md:m-0 md:text-xs list-none pl-10 pr-10"
+        style="min-width: max-content"
+      >
+        <ul class="flex w-full justify-between">
+          <li
+            class="animated-text font-semibold transition-transform antialiased px-10 w-full flex justify-evenly"
+          >
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+          </li>
+          <li
+            class="animated-text font-semibold transition-transform antialiased px-10 w-full flex justify-evenly"
+          >
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+          </li>
+          <li
+            class="animated-text font-semibold transition-transform antialiased px-10 w-full flex justify-evenly"
+          >
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+          </li>
+          <li
+            class="animated-text font-semibold transition-transform antialiased px-10 w-full flex justify-evenly"
+          >
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+
+            <span class="px-8 min-w-max">EXPLORE THE PLUGIN POWER</span>
+
+            TRIAXIZ
+          </li>
+        </ul>
+      </div>
+      <!-- Boundary Ends -->
+
+      <!-- Features -->
+      <div
+        class="flex justify-around prevent-select xl:flex-row flex-col items-center container mx-auto"
       >
         <div
           class="main-feature font-medium tracking-widest flex xl:flex-col justify-center mt-10"
@@ -514,8 +681,10 @@
           </div>
         </div>
       </div>
-      <!--  -->
-      <div class="relative">
+      <!-- Features Ends -->
+
+      <!-- Cross Boundary Starts  -->
+      <div class="relative prevent-select">
         <div
           style="transform: rotate(-4deg)"
           class="absolute flex justify-between p-2 text-sm w-full h-[30px] bg-[#A6F000] md:m-0 md:text-xs list-none pl-10 pr-10 scale-120"
@@ -650,8 +819,12 @@
           </ul>
         </div>
       </div>
+      <!-- Cross Boundary Ends -->
+
+      <!-- Contact Starts -->
       <div
-        class="flex justify-center text-center text-white container mt-10 mx-auto"
+        class="flex justify-center prevent-select text-center text-white container mt-10 mx-auto"
+        id="loc-contact"
       >
         <div>
           <h1 class="text-white lg:text-5xl text-4xl font-semibold">
@@ -663,24 +836,33 @@
             LET'S CREATE <br />
             YOUR NEW BRAND
           </h1>
-          <form action="" method="post" class="flex flex-col align-center p-10">
+
+          <!-- Form Starts Here -->
+          <form
+            action="https://docs.google.com/forms/d/e/1FAIpQLSfL7c3n0R3N8vyHioxVYgiMcvyWUYnSkIee0xNBeKkfjTDhug/formResponse"
+            method="post"
+            class="flex flex-col align-center p-10"
+          >
             <input
               type="text"
-              name=""
+              required
+              name="entry.1348163991"
               placeholder="YOUR NAME"
               id="fname"
               class="border-2 border-slate-100 bg-transparent m-2 p-2"
             />
             <input
               type="email"
-              name=""
+              required
+              name="entry.1860657688"
               placeholder="YOUR MAIL"
               id="email"
               class="border-2 border-slate-100 bg-transparent m-2 p-2"
             />
             <textarea
               type="text"
-              name=""
+              required
+              name="entry.311553161"
               placeholder="YOUR MESSAGE"
               id="message"
               class="border-2 border-slate-100 bg-transparent m-2 p-2 h-[120px]"
@@ -692,9 +874,13 @@
               Get in Touch
             </button>
           </form>
+          <!-- Form Ends Here -->
         </div>
       </div>
+      <!-- Contact Ends -->
     </main>
+
+    <!-- Footer Starts -->
     <footer class="bg-[#010101]">
       <div
         class="text-white container flex lg:flex-row flex-col justify-around mx-auto p-5"
@@ -703,7 +889,7 @@
           <h1 class="out-font font-semibold lg:text-2xl text-xl mt-4">
             Triaxiz
           </h1>
-          <h2 class="mt-2 text-[#565656] text-sm lg:text-base">
+          <h2 class="mt-2 text-[#8a8a8a] text-sm lg:text-base">
             Crafting World-Class Shopify Plugins and Themes. Unmatched features
             and UX for your Shopify-powered online store. Elevate your website
             with our cutting-edge solutions.
@@ -712,9 +898,9 @@
         <!-- flex flex-col items-center -->
         <div class="max-w-lg">
           <h1 class="out-font font-semibold lg:text-2xl text-xl mt-4">
-            Product
+            Our Products
           </h1>
-          <ul class="text-[#565656] mt-2">
+          <ul class="text-[#8a8a8a] mt-2">
             <li>Product #1</li>
             <li>Product #2</li>
             <li>Product #3</li>
@@ -724,14 +910,14 @@
         <div class="max-w-lg flex justify-between">
           <div>
             <h1 class="out-font font-semibold lg:text-2xl text-xl mt-4">
-              My Account
+              Discover
             </h1>
-            <ul class="text-[#565656] mt-2">
-              <li>Profile</li>
-              <li>Favorite</li>
-              <li>Collections</li>
-              <li>Career</li>
-              <li>Contact</li>
+            <ul class="text-[#8a8a8a] mt-2">
+              <li><a href="#loc-about">About</a></li>
+              <li><a href="#loc-favorite">Favorite</a></li>
+              <li><a href="#loc-collection">Collections</a></li>
+              <li><a href="#loc-careers">Career</a></li>
+              <li><a href="#loc-contact">Contact</a></li>
             </ul>
           </div>
           <div>
@@ -750,6 +936,9 @@
         <h1 class="text-white">Copyright &copy; 2023 Triaxiz</h1>
       </div>
     </footer>
+    <!-- Footer Ends -->
+
+    <!-- Script Starts -->
     <script>
       const menuToggle = document.getElementById("menu-toggle");
       const navMenu = document.querySelector("#display-nav");
@@ -770,5 +959,6 @@
         }
       });
     </script>
+    <!-- Script Ends -->
   </body>
 </html>
